@@ -18,7 +18,17 @@
   "scripts": {
     "test": "jest --forceExit",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "render deploy"
+  },
+  "render": {
+    "buildCommand": "npm install && npm run build",
+    "startCommand": "npm run start",
+    "useDocker": false,
+    "src": "src",
+    "env": {
+      "NODE_ENV": "production"
+    }
   },
   "keywords": [],
   "author": "",
