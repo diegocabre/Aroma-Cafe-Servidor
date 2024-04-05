@@ -32,6 +32,9 @@ const db = new Pool({
 
 const db2 = new Pool({
   connectionString: BD_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 db.connect(async (error, client, done) => {
