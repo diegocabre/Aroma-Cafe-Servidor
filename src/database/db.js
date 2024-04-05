@@ -22,15 +22,15 @@ const { Pool } = require("pg");
 
 const { HOST, USER, PASSWORD, DATABASE, PORT, BD_URL } = process.env;
 
-const db = new Pool({
+/* const db = new Pool({
   host: HOST,
   user: USER,
   password: PASSWORD,
   database: DATABASE,
   allowExitOnIdle: true,
-});
+}); */
 
-const db2 = new Pool({
+const db = new Pool({
   connectionString: BD_URL,
 });
 
