@@ -1,10 +1,12 @@
-const router = require("express").Router();
-const { verifyToken } = require("../../middleware/checkLogin/index.js");
+const express = require("express");
+const router = express.Router();
+const { login } = require("../../controllers/LoginController/index.js");
 const {
-  privateHandler,
-} = require("../../controllers/LoginController/index.js");
+  validateCredentials,
+  validationFieldLogin,
+} = require("../../middleware/checkLogin/index.js");
 
-// Ruta protegida para la página privada
-router.get("/", verifyToken, privateHandler);
+// Ruta para iniciar sesión
+router.post("/login", validationFieldLogin, validateCredentials, login);
 
 module.exports = router;
