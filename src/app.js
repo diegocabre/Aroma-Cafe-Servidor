@@ -4,13 +4,13 @@ const morgan = require("morgan");
 const cors = require("cors");
 const routes = require("./routes/index");
 const session = require("express-session");
-const cors = require("cors");
+/* const cors = require("cors");
 
 app.use(
   cors({
     origin: "https://aroma-cafe-cliente.onrender.com",
   })
-);
+); */
 
 const app = express();
 app.use(
