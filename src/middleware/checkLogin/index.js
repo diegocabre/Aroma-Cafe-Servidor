@@ -26,16 +26,25 @@ const validateCredentials = async (req, res, next) => {
       rowCount,
     } = await db.query(query);
     if (!usuario || rowCount === 0) {
-      return res.status(401).json({ error: "Credenciales inválidas" });
+      return res
+        .status(401)
+        .json({
+          error: "Credenciales inválidas: correo electrónico no encontrado",
+        });
     }
     const passwordEncriptada = usuario.contrasenya;
     const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada);
     if (!passwordEsCorrecta) {
-      return res.status(401).json({ error: "Credenciales inválidas" });
+      return res
+        .status(401)
+        .json({ error: "Credenciales inválidas: contraseña incorrecta" });
     }
     next();
   } catch (error) {
-    console.error("Error:", error);
+    console.error(
+      "Error en el middleware de validación de credenciales:",
+      error
+    );
     return res
       .status(500)
       .json({
