@@ -68,26 +68,32 @@ const validationCorreo = async (req, res, next) => {
     const data = await db.query(query);
     if (data.rows.length) {
       return res.status(409).json({
-        error: "bad request",
-        msg: "El usuario ya está registrado",
+        errors: ["El usuario ya está registrado"],
       });
     } else {
       return next();
     }
   } catch (error) {
-    return res.status(500).json(error);
+    console.error("Error al verificar el correo:", error);
+    return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
+
 const verifytoken = async (req, res, next) => {
   try {
     const Authorization = req.header("Authorization");
+    if (!Authorization || !Authorization.startsWith("Bearer ")) {
+      throw new Error("Token de autorización no proporcionado");
+    }
     const token = Authorization.split("Bearer ")[1];
     jwt.verify(token, KEYTOKEN);
     console.log("token verificado");
     return next();
   } catch (error) {
-    return res.status(401).send({ error: error });
+    console.error("Error de verificación de token:", error);
+    return res.status(401).json({ error: "No autorizado" });
   }
 };
 
 module.exports = { validationCorreo, validationFieldRegistrer, verifytoken };
+
